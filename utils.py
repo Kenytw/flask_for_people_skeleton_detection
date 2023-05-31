@@ -11,9 +11,6 @@ class_names = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'tra
                'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
                'scissors', 'teddy bear', 'hair drier', 'toothbrush']
 
-class_names2 = ['ball', 'right_arm', 'left_arm', 'head', 'upbody']
-
-# Create a list of colors for each class where each color is a tuple of 3 integer values
 rng = np.random.default_rng(3)
 colors = rng.uniform(0, 255, size=(len(class_names), 3))
 
@@ -62,7 +59,6 @@ def compute_iou(box, boxes):
 
 
 def xywh2xyxy(x):
-    # Convert bounding box (x, y, w, h) to bounding box (x1, y1, x2, y2)
     y = np.copy(x)
     y[..., 0] = x[..., 0] - x[..., 2] / 2
     y[..., 1] = x[..., 1] - x[..., 3] / 2
@@ -85,10 +81,8 @@ def draw_detections(image, boxes, scores, class_ids, mask_alpha=0.3):
 
         x1, y1, x2, y2 = box.astype(int)
 
-        # Draw rectangle
         cv2.rectangle(det_img, (x1, y1), (x2, y2), color, 2)
 
-        # Draw fill rectangle in mask image
         cv2.rectangle(mask_img, (x1, y1), (x2, y2), color, -1)
 
         label = class_names[class_id]
