@@ -6,7 +6,6 @@ import cv2
 model_path1 = "yolov8n.onnx"
 model1 = YOLOv8(model_path1, conf_thres=0.5, iou_thres=0.5)
 
-mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose(min_detection_confidence=0.3, min_tracking_confidence=0.2)
 
