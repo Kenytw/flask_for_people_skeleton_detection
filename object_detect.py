@@ -4,10 +4,10 @@ import mediapipe as mp
 import cv2
 
 model_path1 = "yolov8n.onnx"
-model1 = YOLOv8(model_path1, conf_thres=0.5, iou_thres=0.5)
+model1 = YOLOv8(model_path1, conf_thres=0.2, iou_thres=0.1)
 
 mp_pose = mp.solutions.pose
-pose = mp_pose.Pose(min_detection_confidence=0.3, min_tracking_confidence=0.2)
+pose = mp_pose.Pose(static_image_mode=True, model_complexity=2, min_detection_confidence=0.3, min_tracking_confidence=0.2)
 
 
 def make_3_landmark_img(color_mode, image, cimage, landmark1, landmark2, landmark3, cx, cy, sp):
@@ -46,6 +46,17 @@ def detectImage(frame):
         x1, y1, x2, y2 = box.astype(int)
         label = class_names[class_id]
         if label == "person":
+            buffer_size = 50
+
+            x1 = int(x1 - buffer_size)
+            x1 = 0 if x1 < 0 else int(x1)
+            y1 = int(y1 - buffer_size)
+            y1 = 0 if y1 < 0 else int(y1)
+            x2 = int(x2 + buffer_size)
+            x2 = int(width) if x2 > width else int(x2)
+            y2 = int(y2 + buffer_size)
+            y2 = int(height) if y2 > height else int(y2)
+            
             cropped_image = frame[y1:y2, x1:x2]
             if cropped_image.shape[0] == 0 or cropped_image.shape[1] == 0:
                 pass
