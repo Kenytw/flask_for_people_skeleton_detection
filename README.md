@@ -1,6 +1,6 @@
 # python-flask-people-skeleton-detection
 
-yolov8 model & mediapipe model<br>
+yolov8 & mediapipe<br>
 demo site: http://34.71.62.223/ (host on GCP Compute Engine)<br>
 front-end reactjs: https://github.com/Kenytw/people-skeleton-detection---beta
 
